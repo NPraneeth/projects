@@ -17,6 +17,7 @@ i=0;
 for line in fmain:
 	url = line.rstrip("\n")
 	print(i)
+	i = i+40
 	print("\n")
 	print("url being processed is "+url+"\n");
 	if url == None:
@@ -37,7 +38,12 @@ for line in fmain:
 		print( "errorcode " + str(errorcode) + "while accessing url " + url)
 		print("-------------------------------------------------------------------")
 		continue
-	response = page.read()
+	try:
+		response = page.read()
+	except Exception as ea:
+		ffail.write(url + "\n")
+		ffail.flush()
+		continue
 	#print(response)
 	soup = BeautifulSoup(response,'html.parser')
 	soup.prettify()
