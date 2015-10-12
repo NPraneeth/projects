@@ -1,0 +1,66 @@
+body
+{
+  outline: none;
+  width: 100%;
+  height: 100%;
+  margin:0;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  }
+
+#menu
+{
+
+margin-top:0%;
+color:white;
+background-color:#014965;
+}
+
+#menu ul
+{
+margin:0;padding:0;
+list-style-type:none;
+}
+#menu ul li {
+display:inline-block;
+padding:18px;
+}
+
+#menu ul li a,visited
+{
+color:white;padding:15px;text-decoration:none;
+}
+#menu ul li a:hover
+{
+color:gray;
+border-bottom:5px solid white;
+}
+#mylogo
+  {
+  position:absolute;
+  right:20px;
+  top:60px;
+  font-size:4em;
+  margin-left:100px;
+  color:#014965;
+  } 
+  /* mem css */
+  table#hello
+  {
+  margin-left:20%;
+  }
+  table#hello tr:nth-child(even){
+  background:#eee;
+ 
+  }
+  table#hello tr:nth-child(odd){
+  background:#fff;
+ 
+  }
+  table#hello tr td
+  {
+  text-align:center;
+  padding:15px;
+  
+  

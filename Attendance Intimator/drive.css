@@ -1,0 +1,52 @@
+input
+{
+border:0;
+}
+
+.name
+{
+display:block;
+border-bottom:1px solid skyblue;
+border-radius:5px;
+margin-left:35px;
+font-family:calibri;
+padding:15px;
+width:100%;
+}
+.fon
+{
+font-family:calibri;
+font-style:italian;
+font-size:20px;
+color: #014965;
+}
+
+
+#submit
+{
+position:absolute;
+top:135%;
+left:64%;
+display:block;
+border:1px solid skyblue;
+border-radius:5px;
+font-family:Andalus;
+font-size:20px;
+color: #014965;
+padding:10px;
+cursor:pointer;
+}
+#sub
+{
+position:absolute;
+top:135%;
+left:30%;
+display:block;
+border:1px solid skyblue;
+border-radius:5px;
+font-family:Andalus;
+font-size:20px;
+color: #014965;
+padding:10px;
+cursor:pointer;
+}
