@@ -11,6 +11,13 @@ def get_soup_from_url(url):
 	soup.prettify();
 	return soup
 
+def get_soup_from_local(localurl):
+	f = open("C:/Users/Praneeth/Desktop/bookDownloads/"+localurl,"r+",encoding="utf-8")
+	print(f)
+	soup = BeautifulSoup(f,'html.parser')
+	soup.prettify();
+	return soup
+
 def get_data_from_soup(soup):
 	prodSummary = soup.findAll('section',{'id':'prodSummary'})[0]
 	book_name = prodSummary.findAll('h1',{'itemprop':'name'})[0].string
@@ -28,7 +35,9 @@ def get_data_from_soup(soup):
 		print(book_price)
 	review_status_box = soup.findAll('div',{'class':'review-status-box'})[0]
 	avg_review_cont = review_status_box.find('p').find('span').string
-	prod_review_info = review_status_box.find('div',{'class':'prodReviewInfo'})
+	#prod_review_info = review_status_box.find('div',{'id':'prodReviewInfo'})
+	prod_review_info = 
+	print(prod_review_info)
 	prod_rating = prod_review_info.find('p',{'class':'avg-review-container'}).find('span',{'class':'gig-average-review'}).string
 	prod_noof_reviews = prod_review_info.find('a',{'class':'gig-rating-readReviewsLink'}).string
 	#prodDetails = soup.findAll('section',{'id':'additionalProductInfo'})[0]
@@ -37,7 +46,7 @@ def get_data_from_soup(soup):
 
 
 
-	
-soup = get_soup_from_url(url)
+soup = get_soup_from_local("1.html")	
+#soup = get_soup_from_url(url)
 name = get_data_from_soup(soup)
 print(name);
