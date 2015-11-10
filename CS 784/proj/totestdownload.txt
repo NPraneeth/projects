@@ -1,0 +1,16 @@
+0-http://www.barnesandnoble.com/w/a-guide-to-the-project-management-body-of-knowledge-project-management-institute/1120134099;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781935589679
+1-http://www.barnesandnoble.com/w/windows-10-david-pogue/1121906765;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781491947173
+2-http://www.barnesandnoble.com/w/the-phoenix-project-gene-kim/1115141434;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9780988262508
+3-http://www.barnesandnoble.com/w/reclaiming-conversation-sherry-turkle/1121098441;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781594205552
+4-http://www.barnesandnoble.com/w/a-work-in-progress-connor-franta/1121227836;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781476791616
+5-http://www.barnesandnoble.com/w/windows-10-for-dummies-andy-rathbone/1120900282;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781119049364
+6-http://www.barnesandnoble.com/w/dotcom-secrets-russell-brunson/1121205063;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781630474775
+7-http://www.barnesandnoble.com/w/ask-ryan-levesque/1121193552;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781939447722
+8-http://www.barnesandnoble.com/w/youtube-eric-skaggs/1121496103;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781312931596
+9-http://www.barnesandnoble.com/w/alan-turing-the-enigma-andrew-hodges/1120011405;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9780691164724
+10-http://www.barnesandnoble.com/w/minecraft-craftings-ika-maisuradze/1121995889;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9782765913511
+11-http://www.barnesandnoble.com/w/candy-crush-soda-saga-jack-adams/1120842254;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=2940046317978
+12-http://www.barnesandnoble.com/w/steve-jobs-walter-isaacson/1104099551;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781451648546
+13-http://www.barnesandnoble.com/w/turn-your-story-into-an-ebook-aaron-pogue/1114275144;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=2940015963328
+14-http://www.barnesandnoble.com/w/windows-10-for-seniors-for-dummies-peter-weverka/1120900279;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9781119038597
+15-http://www.barnesandnoble.com/w/creativity-inc-ed-catmull/1115696843;jsessionid=A3B976280170149282E4EB53F9428761.prodny_store01-botap06?ean=9780812993011
