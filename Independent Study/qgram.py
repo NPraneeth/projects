@@ -23,7 +23,3 @@ class QGrams(Counter):
         
         return sum(self.values())
 
-
-q_vals = QGrams("Praneeth",qval=3)
-print q_vals.values()
-print q_vals

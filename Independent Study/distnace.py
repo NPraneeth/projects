@@ -1,10 +1,10 @@
 
-
+from __future__ import division
 import numpy
 import sys
 import math
 from collections import defaultdict, Counter
-import qgram
+from qgram import QGrams
 import re  # to use substring replace
 try:
     import lzma
@@ -12,6 +12,8 @@ except ImportError:  # pragma: no cover
     # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
+
+
 
 SOUNDEXLENGTH = 6
 
@@ -101,7 +103,7 @@ def eucledian_dist_sim(src,dest,qgraml=2):
 		q_dest = dest 
 	elif qgraml and qgraml >0:
 		print(" In qgrams")
-		q_src = QGrams(src,qgram1)
+		q_src = QGrams(src,qgraml)
 		q_dest = QGrams(dest,qgraml)
 	else:
 		q_src = Counter(src.strip().split())
@@ -139,7 +141,7 @@ def matching_coefficient(src,dest,qgraml=2):
 		q_dest = Counter(dest.strip().split())
 	q_src_mag = sum(q_src.values())
 	q_dest_mag = sum(q_dest.values())
-	maxTokens = math.max(q_src_mag, q_dest_mag)
+	maxTokens = max(q_src_mag, q_dest_mag)
 	q_intersection = q_src & q_dest
 	q_intersection_mag = sum(q_intersection.values())
 	return q_intersection_mag/maxTokens
@@ -155,7 +157,7 @@ def qgram_distance(src,dest,qgraml=2):
 		q_dest = dest 
 	elif qgraml and qgraml >0:
 		print(" In qgrams")
-		q_src = QGrams(src,qgram1)
+		q_src = QGrams(src,qgraml)
 		q_dest = QGrams(dest,qgraml)
 	else:
 		q_src = Counter(src.strip().split())
@@ -163,26 +165,29 @@ def qgram_distance(src,dest,qgraml=2):
 	q_src_mag = sum(q_src.values())
 	q_dest_mag = sum(q_dest.values())
 	q_total = q_src + q_dest
+	print(q_total)
 	difference = 0
 	for key in q_total:
 		#print("in a : " + str(q_src[key]))
 		#print("in b : " + str(q_dest[key]))
 		#print("in total : " + str(q_total[key]))
+		#print(key + " adding " + str(q_src[key]-q_dest[key]))
 		difference = difference + math.fabs(q_src[key]-q_dest[key])
 	maxQGramsMatching = q_src_mag + q_dest_mag
 	return (maxQGramsMatching - difference)/maxQGramsMatching
 
-
+x = qgram_distance('Test String1','Test String2',qgraml=3)
+print(x)
 
 def block_distance(src,dest):
 	
 	## QGram Distance and Block distance looks same to me. Hence stopped implementation
-	return qgram_distance(src,dest,qgraml=-1)
+	return qgram_distance(src,dest,qgraml=None)
 
 
 def chapman_length_deviation(src,dest):
-	len_src = len(src)
-	len_dest = len(dest)
+	len_src = float(len(src))
+	len_dest = float(len(dest))
 	if(len_src >= len_dest):
 		return len_dest/len_src
 	else:
@@ -294,8 +299,12 @@ def soundex_sim(src,dest):
 	return sim_cosine(src,dest)
 	# In java implementation instead of using cosine.. he used jaro winkler
 
-
-
+count=0
+c = Counter()
+c.update('aabbcc')
+for i in c:
+	count = count+1
+print(count)
 
 	#  (((str1Tokens + str2Tokens) * str1Tokens) + ((str1Tokens + str2Tokens) * str2Tokens)) * ESTIMATEDTIMINGCONST
 print("Starting ...")
