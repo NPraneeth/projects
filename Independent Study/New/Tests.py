@@ -16,6 +16,7 @@ from Distance import needleman_wunch_sim
 from Distance import smith_waterman_score
 from Distance import smith_waterman_sim
 from Distance import smith_waterman
+from Distance import chapman_orderedname_compound_sim
 
 
 class SimiliarityTests(unittest.TestCase):
@@ -146,6 +147,8 @@ class SimiliarityTests(unittest.TestCase):
 		self.assertEqual(smith_waterman_sim('Praneeth',None),float(0))
 		self.assertEqual(smith_waterman_sim(None,'Prameela'),float(0))
 		self.assertEqual(smith_waterman_sim(None,None),float(0))
+		self.assertEqual(smith_waterman_sim('Test','Test'),float(1))
+
 	'''
 	def test_smith_waterman(self):
 		self.assertEqual(smith_waterman('GCATGCU','GATTACA'),float(2.5))
@@ -154,6 +157,14 @@ class SimiliarityTests(unittest.TestCase):
 		self.assertEqual(smith_waterman('Test String1','Test String2'),float(11))
 		self.assertEqual(smith_waterman('',''),float(0))
 	'''
+
+	def test_chapman_orderedname_compound_sim(self):
+		self.assertEqual(chapman_orderedname_compound_sim('Test String1','Test String2'),float(0.8772321428571429))
+		self.assertEqual(chapman_orderedname_compound_sim('',''),float(1))
+		self.assertEqual(chapman_orderedname_compound_sim(None,''),float(0))
+		self.assertEqual(chapman_orderedname_compound_sim('',None),float(0))
+		self.assertEqual(chapman_orderedname_compound_sim('Test','Test'),float(1))
+		self.assertEqual(chapman_orderedname_compound_sim('University of Wisconsin Madison','UW Madison'),float(0.71875))
 
 
 

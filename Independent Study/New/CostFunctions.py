@@ -3,7 +3,7 @@
 
 
 
-class simCost_plus1_minus0:
+class simCost_plus0_plus1:
 	@staticmethod
 	def getCost(src,srcIndex,dest,destIndex):
 		if src[srcIndex]==dest[destIndex]:
