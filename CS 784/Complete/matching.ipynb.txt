@@ -1,0 +1,2926 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import magellan as mg"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "WARNING:magellan.utils.helperfunctions:JVM is already running\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mg.init_jvm('/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre/lib/server/libjvm.dylib')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = mg.read_csv('AMAZON_bkp.csv', key='ID')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "B = mg.read_csv('BARNES_bkp.csv', key='ID')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ID</th>\n",
+       "      <th>Title</th>\n",
+       "      <th>Author</th>\n",
+       "      <th>Price</th>\n",
+       "      <th>Edition</th>\n",
+       "      <th>ASIN</th>\n",
+       "      <th>ISBN_13</th>\n",
+       "      <th>ISBN_10</th>\n",
+       "      <th>Paperback</th>\n",
+       "      <th>Series</th>\n",
+       "      <th>...</th>\n",
+       "      <th>Publication_Date</th>\n",
+       "      <th>Sold_by</th>\n",
+       "      <th>Language</th>\n",
+       "      <th>Product Dimensions</th>\n",
+       "      <th>Shipping Weight</th>\n",
+       "      <th>Unnamed: 17</th>\n",
+       "      <th>Unnamed: 18</th>\n",
+       "      <th>Unnamed: 19</th>\n",
+       "      <th>Unnamed: 20</th>\n",
+       "      <th>Unnamed: 21</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>Steve Jobs: A Biography</td>\n",
+       "      <td>Walter Isaacson</td>\n",
+       "      <td>$29.00</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>978-0002160636</td>\n",
+       "      <td>2160633</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>...</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Chinese</td>\n",
+       "      <td>8.6 x 6.1 x 2.1 inches</td>\n",
+       "      <td>2.7 pounds</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>Introduction to Control System Technology</td>\n",
+       "      <td>Robert N. Bateson</td>\n",
+       "      <td>$10.00</td>\n",
+       "      <td>4th Edition</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>978-0023064630</td>\n",
+       "      <td>23064633</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>...</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>English</td>\n",
+       "      <td>1.2 x 7.5 x 9 inches</td>\n",
+       "      <td>3 pounds</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>Computer Assisted Structural Analysis and Mode...</td>\n",
+       "      <td>Marc Ira Hoit</td>\n",
+       "      <td>$20.64</td>\n",
+       "      <td>1st Edition</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>978-0023559723</td>\n",
+       "      <td>23559721</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>...</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>English</td>\n",
+       "      <td>1 x 7.8 x 9.8 inches</td>\n",
+       "      <td>2 pounds</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>3 rows × 22 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   ID                                              Title             Author  \\\n",
+       "0   1                            Steve Jobs: A Biography    Walter Isaacson   \n",
+       "1   2          Introduction to Control System Technology  Robert N. Bateson   \n",
+       "2   3  Computer Assisted Structural Analysis and Mode...      Marc Ira Hoit   \n",
+       "\n",
+       "     Price      Edition ASIN         ISBN_13   ISBN_10 Paperback Series  \\\n",
+       "0  $29.00           NaN  NaN  978-0002160636   2160633       NaN    NaN   \n",
+       "1  $10.00   4th Edition  NaN  978-0023064630  23064633       NaN    NaN   \n",
+       "2  $20.64   1st Edition  NaN  978-0023559723  23559721       NaN    NaN   \n",
+       "\n",
+       "      ...     Publication_Date Sold_by Language      Product Dimensions  \\\n",
+       "0     ...                  NaN     NaN  Chinese  8.6 x 6.1 x 2.1 inches   \n",
+       "1     ...                  NaN     NaN  English    1.2 x 7.5 x 9 inches   \n",
+       "2     ...                  NaN     NaN  English    1 x 7.8 x 9.8 inches   \n",
+       "\n",
+       "  Shipping Weight Unnamed: 17 Unnamed: 18  Unnamed: 19  Unnamed: 20  \\\n",
+       "0      2.7 pounds         NaN         NaN          NaN          NaN   \n",
+       "1        3 pounds         NaN         NaN          NaN          NaN   \n",
+       "2        2 pounds         NaN         NaN          NaN          NaN   \n",
+       "\n",
+       "  Unnamed: 21  \n",
+       "0         NaN  \n",
+       "1         NaN  \n",
+       "2         NaN  \n",
+       "\n",
+       "[3 rows x 22 columns]"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "A.head(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ID</th>\n",
+       "      <th>Title</th>\n",
+       "      <th>Author</th>\n",
+       "      <th>Hardcover</th>\n",
+       "      <th>Paperback</th>\n",
+       "      <th>NOOK_Book</th>\n",
+       "      <th>Audiobook</th>\n",
+       "      <th>ISBN_13_DUMMY</th>\n",
+       "      <th>ISBN_13</th>\n",
+       "      <th>Series</th>\n",
+       "      <th>Publisher</th>\n",
+       "      <th>Publication_Date</th>\n",
+       "      <th>Sales_rank</th>\n",
+       "      <th>Pages</th>\n",
+       "      <th>Product_dimensions</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>A Guide to the Project Management Body of Know...</td>\n",
+       "      <td>Project Management Institute</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>$38.17</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>9.781940e+12</td>\n",
+       "      <td>978-1935589679</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Project Management Institute</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>332</td>\n",
+       "      <td>589</td>\n",
+       "      <td>10.86(w) x 8.26(h) x 1.24(d)</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>1</td>\n",
+       "      <td>Windows 10: The Missing Manual</td>\n",
+       "      <td>David Pogue</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>$23.41</td>\n",
+       "      <td>$19.99</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>9.781490e+12</td>\n",
+       "      <td>978-1491947173</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>O'Reilly Media, Incorporated</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>300</td>\n",
+       "      <td>696</td>\n",
+       "      <td>7.00(w) x 9.20(h) x 1.40(d)</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>The Phoenix Project: A Novel about IT, DevOps,...</td>\n",
+       "      <td>Gene Kim# Kevin Behr# George Spafford</td>\n",
+       "      <td></td>\n",
+       "      <td>$13.17</td>\n",
+       "      <td>$9.99</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>9.780990e+12</td>\n",
+       "      <td>978-0988262508</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>IT Revolution Press</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>30,046</td>\n",
+       "      <td>376</td>\n",
+       "      <td>5.90(w) x 8.90(h) x 1.10(d)</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   ID                                              Title  \\\n",
+       "0   0  A Guide to the Project Management Body of Know...   \n",
+       "1   1                     Windows 10: The Missing Manual   \n",
+       "2   2  The Phoenix Project: A Novel about IT, DevOps,...   \n",
+       "\n",
+       "                                  Author Hardcover Paperback NOOK_Book  \\\n",
+       "0           Project Management Institute       NaN   $38.17        NaN   \n",
+       "1                            David Pogue       NaN   $23.41    $19.99    \n",
+       "2  Gene Kim# Kevin Behr# George Spafford             $13.17     $9.99    \n",
+       "\n",
+       "  Audiobook  ISBN_13_DUMMY         ISBN_13 Series  \\\n",
+       "0       NaN   9.781940e+12  978-1935589679    NaN   \n",
+       "1       NaN   9.781490e+12  978-1491947173    NaN   \n",
+       "2       NaN   9.780990e+12  978-0988262508    NaN   \n",
+       "\n",
+       "                      Publisher  Publication_Date Sales_rank  Pages  \\\n",
+       "0  Project Management Institute               NaN        332    589   \n",
+       "1  O'Reilly Media, Incorporated               NaN        300    696   \n",
+       "2           IT Revolution Press               NaN     30,046    376   \n",
+       "\n",
+       "             Product_dimensions  \n",
+       "0  10.86(w) x 8.26(h) x 1.24(d)  \n",
+       "1   7.00(w) x 9.20(h) x 1.40(d)  \n",
+       "2   5.90(w) x 8.90(h) x 1.10(d)  "
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "B.head(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "C = mg.read_csv('Blocked_table.csv', ltable=A, rtable=B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>_id</th>\n",
+       "      <th>ltable.ID</th>\n",
+       "      <th>rtable.ID</th>\n",
+       "      <th>ltable.Title</th>\n",
+       "      <th>ltable.Author</th>\n",
+       "      <th>ltable.ISBN_13</th>\n",
+       "      <th>ltable.Publisher</th>\n",
+       "      <th>rtable.Title</th>\n",
+       "      <th>rtable.Author</th>\n",
+       "      <th>rtable.ISBN_13</th>\n",
+       "      <th>rtable.Publisher</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>12</td>\n",
+       "      <td>Steve Jobs: A Biography</td>\n",
+       "      <td>Walter Isaacson</td>\n",
+       "      <td>978-0002160636</td>\n",
+       "      <td>Tian Xia Wen Hua</td>\n",
+       "      <td>Steve Jobs</td>\n",
+       "      <td>Walter Isaacson</td>\n",
+       "      <td>978-1451648546</td>\n",
+       "      <td>Simon &amp; Schuster</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>175</td>\n",
+       "      <td>Steve Jobs: A Biography</td>\n",
+       "      <td>Walter Isaacson</td>\n",
+       "      <td>978-0002160636</td>\n",
+       "      <td>Tian Xia Wen Hua</td>\n",
+       "      <td>Steve Jobs</td>\n",
+       "      <td>W. Isaacson# Walter Isaacson</td>\n",
+       "      <td>978-2253168522</td>\n",
+       "      <td>Livre de Poche</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2796</td>\n",
+       "      <td>14</td>\n",
+       "      <td>402</td>\n",
+       "      <td>Cyber War: The Next Threat to National Securit...</td>\n",
+       "      <td>Richard A. Clarke# Robert Knake</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Cyber War: The Next Threat to National Securit...</td>\n",
+       "      <td>Richard A. Clarke# Robert Knake</td>\n",
+       "      <td>978-0061962240</td>\n",
+       "      <td>HarperCollins Publishers</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    _id  ltable.ID  rtable.ID  \\\n",
+       "0     0          1         12   \n",
+       "1     4          1        175   \n",
+       "2  2796         14        402   \n",
+       "\n",
+       "                                        ltable.Title  \\\n",
+       "0                            Steve Jobs: A Biography   \n",
+       "1                            Steve Jobs: A Biography   \n",
+       "2  Cyber War: The Next Threat to National Securit...   \n",
+       "\n",
+       "                     ltable.Author  ltable.ISBN_13  ltable.Publisher  \\\n",
+       "0                  Walter Isaacson  978-0002160636  Tian Xia Wen Hua   \n",
+       "1                  Walter Isaacson  978-0002160636  Tian Xia Wen Hua   \n",
+       "2  Richard A. Clarke# Robert Knake             NaN               NaN   \n",
+       "\n",
+       "                                        rtable.Title  \\\n",
+       "0                                         Steve Jobs   \n",
+       "1                                         Steve Jobs   \n",
+       "2  Cyber War: The Next Threat to National Securit...   \n",
+       "\n",
+       "                     rtable.Author  rtable.ISBN_13          rtable.Publisher  \n",
+       "0                  Walter Isaacson  978-1451648546          Simon & Schuster  \n",
+       "1     W. Isaacson# Walter Isaacson  978-2253168522            Livre de Poche  \n",
+       "2  Richard A. Clarke# Robert Knake  978-0061962240  HarperCollins Publishers  "
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "C.head(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 241,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "S = mg.sample_table(C, 450)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1326,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>_id</th>\n",
+       "      <th>ltable.ID</th>\n",
+       "      <th>rtable.ID</th>\n",
+       "      <th>ltable.Title</th>\n",
+       "      <th>ltable.Author</th>\n",
+       "      <th>ltable.ISBN_13</th>\n",
+       "      <th>ltable.Publisher</th>\n",
+       "      <th>rtable.Title</th>\n",
+       "      <th>rtable.Author</th>\n",
+       "      <th>rtable.ISBN_13</th>\n",
+       "      <th>rtable.Publisher</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>7383</td>\n",
+       "      <td>28</td>\n",
+       "      <td>8575</td>\n",
+       "      <td>The Complete Guide to Mmx Technology</td>\n",
+       "      <td>David Bistry# Carole Dulong# David Bistry# Mic...</td>\n",
+       "      <td>978-0070061927</td>\n",
+       "      <td>McGraw-Hill/TAB Electronics</td>\n",
+       "      <td>C++ Templates: The Complete Guide / Edition 1</td>\n",
+       "      <td>David Vandevoorde# Nicolai Josuttis# Nicolai M...</td>\n",
+       "      <td>978-0201734843</td>\n",
+       "      <td>Addison-Wesley</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>8868</td>\n",
+       "      <td>36</td>\n",
+       "      <td>1844</td>\n",
+       "      <td>Intuitive Digital Computer Basics: An Introduc...</td>\n",
+       "      <td>Thomas M. Frederiksen</td>\n",
+       "      <td>978-0070219656</td>\n",
+       "      <td>Mcgraw-Hill</td>\n",
+       "      <td>Languages and Machines: An Introduction to the...</td>\n",
+       "      <td>Thomas A. Sudkamp</td>\n",
+       "      <td>978-0321322210</td>\n",
+       "      <td>Pearson</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34</th>\n",
+       "      <td>21829</td>\n",
+       "      <td>128</td>\n",
+       "      <td>2081</td>\n",
+       "      <td>Mike Meyers' CompTIA Network+ Guide to Managin...</td>\n",
+       "      <td>Michael Meyers</td>\n",
+       "      <td>978-0071615266</td>\n",
+       "      <td>McGraw-Hill Osborne Media</td>\n",
+       "      <td>Mike Meyers' CompTIA Network+ Guide to Managin...</td>\n",
+       "      <td>Mike Meyers</td>\n",
+       "      <td>978-0071799812</td>\n",
+       "      <td>McGraw-Hill Education</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      _id  ltable.ID  rtable.ID  \\\n",
+       "7    7383         28       8575   \n",
+       "10   8868         36       1844   \n",
+       "34  21829        128       2081   \n",
+       "\n",
+       "                                         ltable.Title  \\\n",
+       "7                The Complete Guide to Mmx Technology   \n",
+       "10  Intuitive Digital Computer Basics: An Introduc...   \n",
+       "34  Mike Meyers' CompTIA Network+ Guide to Managin...   \n",
+       "\n",
+       "                                        ltable.Author  ltable.ISBN_13  \\\n",
+       "7   David Bistry# Carole Dulong# David Bistry# Mic...  978-0070061927   \n",
+       "10                              Thomas M. Frederiksen  978-0070219656   \n",
+       "34                                     Michael Meyers  978-0071615266   \n",
+       "\n",
+       "               ltable.Publisher  \\\n",
+       "7   McGraw-Hill/TAB Electronics   \n",
+       "10                  Mcgraw-Hill   \n",
+       "34    McGraw-Hill Osborne Media   \n",
+       "\n",
+       "                                         rtable.Title  \\\n",
+       "7       C++ Templates: The Complete Guide / Edition 1   \n",
+       "10  Languages and Machines: An Introduction to the...   \n",
+       "34  Mike Meyers' CompTIA Network+ Guide to Managin...   \n",
+       "\n",
+       "                                        rtable.Author  rtable.ISBN_13  \\\n",
+       "7   David Vandevoorde# Nicolai Josuttis# Nicolai M...  978-0201734843   \n",
+       "10                                  Thomas A. Sudkamp  978-0321322210   \n",
+       "34                                        Mike Meyers  978-0071799812   \n",
+       "\n",
+       "         rtable.Publisher  \n",
+       "7          Addison-Wesley  \n",
+       "10                Pearson  \n",
+       "34  McGraw-Hill Education  "
+      ]
+     },
+     "execution_count": 1326,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "S.head(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "#G = mg.label_table(S, 'gold')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "450"
+      ]
+     },
+     "execution_count": 102,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#len(G)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#G.to_csv('Golden_table.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 278,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "G = mg.read_csv('Golden_table.csv', ltable=A, rtable=B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 279,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>_id</th>\n",
+       "      <th>ltable.ID</th>\n",
+       "      <th>rtable.ID</th>\n",
+       "      <th>ltable.Title</th>\n",
+       "      <th>ltable.Author</th>\n",
+       "      <th>ltable.ISBN_13</th>\n",
+       "      <th>ltable.Publisher</th>\n",
+       "      <th>rtable.Title</th>\n",
+       "      <th>rtable.Author</th>\n",
+       "      <th>rtable.ISBN_13</th>\n",
+       "      <th>rtable.Publisher</th>\n",
+       "      <th>gold</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>10190</td>\n",
+       "      <td>45</td>\n",
+       "      <td>5270</td>\n",
+       "      <td>Schaum's Outline of Essential Computer Mathema...</td>\n",
+       "      <td>Seymour Lipschutz</td>\n",
+       "      <td>978-0070379909</td>\n",
+       "      <td>McGraw-Hill Education</td>\n",
+       "      <td>Schaum's Outline of Essential Computer Mathema...</td>\n",
+       "      <td>Seymour Lipschutz</td>\n",
+       "      <td>978-0070379909</td>\n",
+       "      <td>McGraw-Hill Professional Publishing</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>11468</td>\n",
+       "      <td>51</td>\n",
+       "      <td>9592</td>\n",
+       "      <td>Digital Signal Processing: A Computer-Based Ap...</td>\n",
+       "      <td>Sanjit K. Mitra</td>\n",
+       "      <td>978-0070429536</td>\n",
+       "      <td>Mcgraw-Hill College</td>\n",
+       "      <td>Optical Filter Design and Analysis: A Signal P...</td>\n",
+       "      <td>Christi K. Madsen# Jian H. Zhao</td>\n",
+       "      <td>978-0471183730</td>\n",
+       "      <td>Wiley</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>16638</td>\n",
+       "      <td>82</td>\n",
+       "      <td>9776</td>\n",
+       "      <td>Schaum's Outline of Computer Networking</td>\n",
+       "      <td>Ed Tittel</td>\n",
+       "      <td>978-0521782586</td>\n",
+       "      <td>McGraw-Hill Education</td>\n",
+       "      <td>Schaum's Outline of XML</td>\n",
+       "      <td>Ed Tittel</td>\n",
+       "      <td>978-0071398350</td>\n",
+       "      <td>McGraw-Hill Education</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     _id  ltable.ID  rtable.ID  \\\n",
+       "0  10190         45       5270   \n",
+       "1  11468         51       9592   \n",
+       "2  16638         82       9776   \n",
+       "\n",
+       "                                        ltable.Title      ltable.Author  \\\n",
+       "0  Schaum's Outline of Essential Computer Mathema...  Seymour Lipschutz   \n",
+       "1  Digital Signal Processing: A Computer-Based Ap...    Sanjit K. Mitra   \n",
+       "2            Schaum's Outline of Computer Networking          Ed Tittel   \n",
+       "\n",
+       "   ltable.ISBN_13       ltable.Publisher  \\\n",
+       "0  978-0070379909  McGraw-Hill Education   \n",
+       "1  978-0070429536    Mcgraw-Hill College   \n",
+       "2  978-0521782586  McGraw-Hill Education   \n",
+       "\n",
+       "                                        rtable.Title  \\\n",
+       "0  Schaum's Outline of Essential Computer Mathema...   \n",
+       "1  Optical Filter Design and Analysis: A Signal P...   \n",
+       "2                            Schaum's Outline of XML   \n",
+       "\n",
+       "                     rtable.Author  rtable.ISBN_13  \\\n",
+       "0                Seymour Lipschutz  978-0070379909   \n",
+       "1  Christi K. Madsen# Jian H. Zhao  978-0471183730   \n",
+       "2                        Ed Tittel  978-0071398350   \n",
+       "\n",
+       "                      rtable.Publisher  gold  \n",
+       "0  McGraw-Hill Professional Publishing     1  \n",
+       "1                                Wiley     0  \n",
+       "2                McGraw-Hill Education     0  "
+      ]
+     },
+     "execution_count": 279,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "G.head(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 280,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "IJ = mg.train_test_split(G, train_proportion=0.75)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 281,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "I = IJ['train']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 282,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "J = IJ['test']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 283,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 283,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "I.to_csv('I.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 284,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "I = mg.read_csv('I.csv', ltable=A, rtable=B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 285,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(337, 113)"
+      ]
+     },
+     "execution_count": 285,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "(len(I), len(J))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 286,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 286,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "J.to_csv('J.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 287,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "dt = mg.DTMatcher(name='DecisionTree', random_state=0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 288,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "svm = mg.SVMMatcher()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 289,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "rf = mg.RFMatcher(name='RF', random_state=0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 290,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "nb = mg.NBMatcher(name='NB')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 291,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "lg = mg.LogRegMatcher(name='LogReg')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 292,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "ln = mg.LinRegMatcher(name='LinReg')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 293,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "('DecisionTree', 'SVM_06794146326573248441')"
+      ]
+     },
+     "execution_count": 293,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "(dt.name, svm.name)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 294,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "WARNING:magellan.feature.attributeutils:Column Unnamed: 17 does not seem to qualify as any atomic type. It may contain all NaNs. Currently, setting its type to be numeric.We recommend the users to manually update the returned types or features later. \n",
+      "\n",
+      "WARNING:magellan.feature.attributeutils:Column Unnamed: 18 does not seem to qualify as any atomic type. It may contain all NaNs. Currently, setting its type to be numeric.We recommend the users to manually update the returned types or features later. \n",
+      "\n",
+      "WARNING:magellan.feature.attributeutils:Column Publication_Date does not seem to qualify as any atomic type. It may contain all NaNs. Currently, setting its type to be numeric.We recommend the users to manually update the returned types or features later. \n",
+      "\n",
+      "WARNING:magellan.feature.autofeaturegen:Magellan types: Publication_Date type (str_eq_1w) and Publication_Date type (numeric) are different.If you want to set them to be same and generate features, update output from get_attr_types and use get_features command.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "feat_table = mg.get_features_for_matching(A, B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 295,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>feature_name</th>\n",
+       "      <th>left_attribute</th>\n",
+       "      <th>right_attribute</th>\n",
+       "      <th>left_attr_tokenizer</th>\n",
+       "      <th>right_attr_tokenizer</th>\n",
+       "      <th>simfunction</th>\n",
+       "      <th>function</th>\n",
+       "      <th>function_source</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>ID_ID_exm</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>exact_match</td>\n",
+       "      <td>&lt;function ID_ID_exm at 0x11fe010c8&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>ID_ID_anm</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>abs_norm</td>\n",
+       "      <td>&lt;function ID_ID_anm at 0x11fe01140&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>ID_ID_lev</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>ID</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function ID_ID_lev at 0x11fe01488&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Title_Title_jac_qgm_3_qgm_3</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Title_Title_jac_qgm_3_qgm_3 at 0x11f...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Title_Title_cos_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>cosine</td>\n",
+       "      <td>&lt;function Title_Title_cos_dlm_dc0_dlm_dc0 at 0...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>Title_Title_mel</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>monge_elkan</td>\n",
+       "      <td>&lt;function Title_Title_mel at 0x11fe01c80&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>Title_Title_lev</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>Title</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function Title_Title_lev at 0x11fe01de8&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>Author_Author_jac_qgm_3_qgm_3</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Author_Author_jac_qgm_3_qgm_3 at 0x1...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>Author_Author_cos_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>cosine</td>\n",
+       "      <td>&lt;function Author_Author_cos_dlm_dc0_dlm_dc0 at...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>Author_Author_jac_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Author_Author_jac_dlm_dc0_dlm_dc0 at...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>Author_Author_mel</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>monge_elkan</td>\n",
+       "      <td>&lt;function Author_Author_mel at 0x1217a1140&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>Author_Author_lev</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function Author_Author_lev at 0x1217a1848&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>Author_Author_nmw</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>needleman_wunsch</td>\n",
+       "      <td>&lt;function Author_Author_nmw at 0x1217a1f50&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>13</th>\n",
+       "      <td>Author_Author_sw</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman</td>\n",
+       "      <td>&lt;function Author_Author_sw at 0x1217a1c80&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>Author_Author_swg</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>Author</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman_gotoh</td>\n",
+       "      <td>&lt;function Author_Author_swg at 0x1217a1c08&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>15</th>\n",
+       "      <td>ISBN_13_ISBN_13_lev</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_lev at 0x1217a1b90&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>ISBN_13_ISBN_13_jar</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>jaro</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_jar at 0x1217a1d70&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>17</th>\n",
+       "      <td>ISBN_13_ISBN_13_jwn</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>jaro_winkler</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_jwn at 0x1217a1cf8&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>18</th>\n",
+       "      <td>ISBN_13_ISBN_13_sdx</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>soundex</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_sdx at 0x1217a1aa0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>ISBN_13_ISBN_13_exm</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>exact_match</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_exm at 0x1217a19b0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>ISBN_13_ISBN_13_jac_qgm_3_qgm_3</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>ISBN_13</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function ISBN_13_ISBN_13_jac_qgm_3_qgm_3 at 0...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>Paperback_Paperback_jac_qgm_3_qgm_3</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Paperback_Paperback_jac_qgm_3_qgm_3 ...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>Paperback_Paperback_cos_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>cosine</td>\n",
+       "      <td>&lt;function Paperback_Paperback_cos_dlm_dc0_dlm_...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>Paperback_Paperback_jac_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Paperback_Paperback_jac_dlm_dc0_dlm_...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>Paperback_Paperback_mel</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>monge_elkan</td>\n",
+       "      <td>&lt;function Paperback_Paperback_mel at 0x1217a1e60&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>Paperback_Paperback_lev</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function Paperback_Paperback_lev at 0x1217a1410&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>Paperback_Paperback_nmw</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>needleman_wunsch</td>\n",
+       "      <td>&lt;function Paperback_Paperback_nmw at 0x1217a11b8&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>Paperback_Paperback_sw</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman</td>\n",
+       "      <td>&lt;function Paperback_Paperback_sw at 0x1217a1320&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>Paperback_Paperback_swg</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>Paperback</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman_gotoh</td>\n",
+       "      <td>&lt;function Paperback_Paperback_swg at 0x1217a12a8&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>Series_Series_jac_qgm_3_qgm_3</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Series_Series_jac_qgm_3_qgm_3 at 0x1...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>30</th>\n",
+       "      <td>Series_Series_cos_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>cosine</td>\n",
+       "      <td>&lt;function Series_Series_cos_dlm_dc0_dlm_dc0 at...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31</th>\n",
+       "      <td>Series_Series_jac_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Series_Series_jac_dlm_dc0_dlm_dc0 at...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>32</th>\n",
+       "      <td>Series_Series_mel</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>monge_elkan</td>\n",
+       "      <td>&lt;function Series_Series_mel at 0x123000b90&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>33</th>\n",
+       "      <td>Series_Series_lev</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function Series_Series_lev at 0x123000668&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34</th>\n",
+       "      <td>Series_Series_nmw</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>needleman_wunsch</td>\n",
+       "      <td>&lt;function Series_Series_nmw at 0x1230007d0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35</th>\n",
+       "      <td>Series_Series_sw</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman</td>\n",
+       "      <td>&lt;function Series_Series_sw at 0x123000c80&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>36</th>\n",
+       "      <td>Series_Series_swg</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>Series</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman_gotoh</td>\n",
+       "      <td>&lt;function Series_Series_swg at 0x123000b18&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>37</th>\n",
+       "      <td>Publisher_Publisher_jac_qgm_3_qgm_3</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>qgm_3</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Publisher_Publisher_jac_qgm_3_qgm_3 ...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>38</th>\n",
+       "      <td>Publisher_Publisher_cos_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>cosine</td>\n",
+       "      <td>&lt;function Publisher_Publisher_cos_dlm_dc0_dlm_...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>39</th>\n",
+       "      <td>Publisher_Publisher_jac_dlm_dc0_dlm_dc0</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>dlm_dc0</td>\n",
+       "      <td>jaccard</td>\n",
+       "      <td>&lt;function Publisher_Publisher_jac_dlm_dc0_dlm_...</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>40</th>\n",
+       "      <td>Publisher_Publisher_mel</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>monge_elkan</td>\n",
+       "      <td>&lt;function Publisher_Publisher_mel at 0x123000938&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>41</th>\n",
+       "      <td>Publisher_Publisher_lev</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>lev</td>\n",
+       "      <td>&lt;function Publisher_Publisher_lev at 0x123000d70&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>42</th>\n",
+       "      <td>Publisher_Publisher_nmw</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>needleman_wunsch</td>\n",
+       "      <td>&lt;function Publisher_Publisher_nmw at 0x123000aa0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>43</th>\n",
+       "      <td>Publisher_Publisher_sw</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman</td>\n",
+       "      <td>&lt;function Publisher_Publisher_sw at 0x1230009b0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>44</th>\n",
+       "      <td>Publisher_Publisher_swg</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>Publisher</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>smith_waterman_gotoh</td>\n",
+       "      <td>&lt;function Publisher_Publisher_swg at 0x1230006e0&gt;</td>\n",
+       "      <td>from magellan.feature.simfunctions import *\\nf...</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                               feature_name left_attribute right_attribute  \\\n",
+       "0                                 ID_ID_exm             ID              ID   \n",
+       "1                                 ID_ID_anm             ID              ID   \n",
+       "2                                 ID_ID_lev             ID              ID   \n",
+       "3               Title_Title_jac_qgm_3_qgm_3          Title           Title   \n",
+       "4           Title_Title_cos_dlm_dc0_dlm_dc0          Title           Title   \n",
+       "5                           Title_Title_mel          Title           Title   \n",
+       "6                           Title_Title_lev          Title           Title   \n",
+       "7             Author_Author_jac_qgm_3_qgm_3         Author          Author   \n",
+       "8         Author_Author_cos_dlm_dc0_dlm_dc0         Author          Author   \n",
+       "9         Author_Author_jac_dlm_dc0_dlm_dc0         Author          Author   \n",
+       "10                        Author_Author_mel         Author          Author   \n",
+       "11                        Author_Author_lev         Author          Author   \n",
+       "12                        Author_Author_nmw         Author          Author   \n",
+       "13                         Author_Author_sw         Author          Author   \n",
+       "14                        Author_Author_swg         Author          Author   \n",
+       "15                      ISBN_13_ISBN_13_lev        ISBN_13         ISBN_13   \n",
+       "16                      ISBN_13_ISBN_13_jar        ISBN_13         ISBN_13   \n",
+       "17                      ISBN_13_ISBN_13_jwn        ISBN_13         ISBN_13   \n",
+       "18                      ISBN_13_ISBN_13_sdx        ISBN_13         ISBN_13   \n",
+       "19                      ISBN_13_ISBN_13_exm        ISBN_13         ISBN_13   \n",
+       "20          ISBN_13_ISBN_13_jac_qgm_3_qgm_3        ISBN_13         ISBN_13   \n",
+       "21      Paperback_Paperback_jac_qgm_3_qgm_3      Paperback       Paperback   \n",
+       "22  Paperback_Paperback_cos_dlm_dc0_dlm_dc0      Paperback       Paperback   \n",
+       "23  Paperback_Paperback_jac_dlm_dc0_dlm_dc0      Paperback       Paperback   \n",
+       "24                  Paperback_Paperback_mel      Paperback       Paperback   \n",
+       "25                  Paperback_Paperback_lev      Paperback       Paperback   \n",
+       "26                  Paperback_Paperback_nmw      Paperback       Paperback   \n",
+       "27                   Paperback_Paperback_sw      Paperback       Paperback   \n",
+       "28                  Paperback_Paperback_swg      Paperback       Paperback   \n",
+       "29            Series_Series_jac_qgm_3_qgm_3         Series          Series   \n",
+       "30        Series_Series_cos_dlm_dc0_dlm_dc0         Series          Series   \n",
+       "31        Series_Series_jac_dlm_dc0_dlm_dc0         Series          Series   \n",
+       "32                        Series_Series_mel         Series          Series   \n",
+       "33                        Series_Series_lev         Series          Series   \n",
+       "34                        Series_Series_nmw         Series          Series   \n",
+       "35                         Series_Series_sw         Series          Series   \n",
+       "36                        Series_Series_swg         Series          Series   \n",
+       "37      Publisher_Publisher_jac_qgm_3_qgm_3      Publisher       Publisher   \n",
+       "38  Publisher_Publisher_cos_dlm_dc0_dlm_dc0      Publisher       Publisher   \n",
+       "39  Publisher_Publisher_jac_dlm_dc0_dlm_dc0      Publisher       Publisher   \n",
+       "40                  Publisher_Publisher_mel      Publisher       Publisher   \n",
+       "41                  Publisher_Publisher_lev      Publisher       Publisher   \n",
+       "42                  Publisher_Publisher_nmw      Publisher       Publisher   \n",
+       "43                   Publisher_Publisher_sw      Publisher       Publisher   \n",
+       "44                  Publisher_Publisher_swg      Publisher       Publisher   \n",
+       "\n",
+       "   left_attr_tokenizer right_attr_tokenizer           simfunction  \\\n",
+       "0                 None                 None           exact_match   \n",
+       "1                 None                 None              abs_norm   \n",
+       "2                 None                 None                   lev   \n",
+       "3                qgm_3                qgm_3               jaccard   \n",
+       "4              dlm_dc0              dlm_dc0                cosine   \n",
+       "5                 None                 None           monge_elkan   \n",
+       "6                 None                 None                   lev   \n",
+       "7                qgm_3                qgm_3               jaccard   \n",
+       "8              dlm_dc0              dlm_dc0                cosine   \n",
+       "9              dlm_dc0              dlm_dc0               jaccard   \n",
+       "10                None                 None           monge_elkan   \n",
+       "11                None                 None                   lev   \n",
+       "12                None                 None      needleman_wunsch   \n",
+       "13                None                 None        smith_waterman   \n",
+       "14                None                 None  smith_waterman_gotoh   \n",
+       "15                None                 None                   lev   \n",
+       "16                None                 None                  jaro   \n",
+       "17                None                 None          jaro_winkler   \n",
+       "18                None                 None               soundex   \n",
+       "19                None                 None           exact_match   \n",
+       "20               qgm_3                qgm_3               jaccard   \n",
+       "21               qgm_3                qgm_3               jaccard   \n",
+       "22             dlm_dc0              dlm_dc0                cosine   \n",
+       "23             dlm_dc0              dlm_dc0               jaccard   \n",
+       "24                None                 None           monge_elkan   \n",
+       "25                None                 None                   lev   \n",
+       "26                None                 None      needleman_wunsch   \n",
+       "27                None                 None        smith_waterman   \n",
+       "28                None                 None  smith_waterman_gotoh   \n",
+       "29               qgm_3                qgm_3               jaccard   \n",
+       "30             dlm_dc0              dlm_dc0                cosine   \n",
+       "31             dlm_dc0              dlm_dc0               jaccard   \n",
+       "32                None                 None           monge_elkan   \n",
+       "33                None                 None                   lev   \n",
+       "34                None                 None      needleman_wunsch   \n",
+       "35                None                 None        smith_waterman   \n",
+       "36                None                 None  smith_waterman_gotoh   \n",
+       "37               qgm_3                qgm_3               jaccard   \n",
+       "38             dlm_dc0              dlm_dc0                cosine   \n",
+       "39             dlm_dc0              dlm_dc0               jaccard   \n",
+       "40                None                 None           monge_elkan   \n",
+       "41                None                 None                   lev   \n",
+       "42                None                 None      needleman_wunsch   \n",
+       "43                None                 None        smith_waterman   \n",
+       "44                None                 None  smith_waterman_gotoh   \n",
+       "\n",
+       "                                             function  \\\n",
+       "0                 <function ID_ID_exm at 0x11fe010c8>   \n",
+       "1                 <function ID_ID_anm at 0x11fe01140>   \n",
+       "2                 <function ID_ID_lev at 0x11fe01488>   \n",
+       "3   <function Title_Title_jac_qgm_3_qgm_3 at 0x11f...   \n",
+       "4   <function Title_Title_cos_dlm_dc0_dlm_dc0 at 0...   \n",
+       "5           <function Title_Title_mel at 0x11fe01c80>   \n",
+       "6           <function Title_Title_lev at 0x11fe01de8>   \n",
+       "7   <function Author_Author_jac_qgm_3_qgm_3 at 0x1...   \n",
+       "8   <function Author_Author_cos_dlm_dc0_dlm_dc0 at...   \n",
+       "9   <function Author_Author_jac_dlm_dc0_dlm_dc0 at...   \n",
+       "10        <function Author_Author_mel at 0x1217a1140>   \n",
+       "11        <function Author_Author_lev at 0x1217a1848>   \n",
+       "12        <function Author_Author_nmw at 0x1217a1f50>   \n",
+       "13         <function Author_Author_sw at 0x1217a1c80>   \n",
+       "14        <function Author_Author_swg at 0x1217a1c08>   \n",
+       "15      <function ISBN_13_ISBN_13_lev at 0x1217a1b90>   \n",
+       "16      <function ISBN_13_ISBN_13_jar at 0x1217a1d70>   \n",
+       "17      <function ISBN_13_ISBN_13_jwn at 0x1217a1cf8>   \n",
+       "18      <function ISBN_13_ISBN_13_sdx at 0x1217a1aa0>   \n",
+       "19      <function ISBN_13_ISBN_13_exm at 0x1217a19b0>   \n",
+       "20  <function ISBN_13_ISBN_13_jac_qgm_3_qgm_3 at 0...   \n",
+       "21  <function Paperback_Paperback_jac_qgm_3_qgm_3 ...   \n",
+       "22  <function Paperback_Paperback_cos_dlm_dc0_dlm_...   \n",
+       "23  <function Paperback_Paperback_jac_dlm_dc0_dlm_...   \n",
+       "24  <function Paperback_Paperback_mel at 0x1217a1e60>   \n",
+       "25  <function Paperback_Paperback_lev at 0x1217a1410>   \n",
+       "26  <function Paperback_Paperback_nmw at 0x1217a11b8>   \n",
+       "27   <function Paperback_Paperback_sw at 0x1217a1320>   \n",
+       "28  <function Paperback_Paperback_swg at 0x1217a12a8>   \n",
+       "29  <function Series_Series_jac_qgm_3_qgm_3 at 0x1...   \n",
+       "30  <function Series_Series_cos_dlm_dc0_dlm_dc0 at...   \n",
+       "31  <function Series_Series_jac_dlm_dc0_dlm_dc0 at...   \n",
+       "32        <function Series_Series_mel at 0x123000b90>   \n",
+       "33        <function Series_Series_lev at 0x123000668>   \n",
+       "34        <function Series_Series_nmw at 0x1230007d0>   \n",
+       "35         <function Series_Series_sw at 0x123000c80>   \n",
+       "36        <function Series_Series_swg at 0x123000b18>   \n",
+       "37  <function Publisher_Publisher_jac_qgm_3_qgm_3 ...   \n",
+       "38  <function Publisher_Publisher_cos_dlm_dc0_dlm_...   \n",
+       "39  <function Publisher_Publisher_jac_dlm_dc0_dlm_...   \n",
+       "40  <function Publisher_Publisher_mel at 0x123000938>   \n",
+       "41  <function Publisher_Publisher_lev at 0x123000d70>   \n",
+       "42  <function Publisher_Publisher_nmw at 0x123000aa0>   \n",
+       "43   <function Publisher_Publisher_sw at 0x1230009b0>   \n",
+       "44  <function Publisher_Publisher_swg at 0x1230006e0>   \n",
+       "\n",
+       "                                      function_source  \n",
+       "0   from magellan.feature.simfunctions import *\\nf...  \n",
+       "1   from magellan.feature.simfunctions import *\\nf...  \n",
+       "2   from magellan.feature.simfunctions import *\\nf...  \n",
+       "3   from magellan.feature.simfunctions import *\\nf...  \n",
+       "4   from magellan.feature.simfunctions import *\\nf...  \n",
+       "5   from magellan.feature.simfunctions import *\\nf...  \n",
+       "6   from magellan.feature.simfunctions import *\\nf...  \n",
+       "7   from magellan.feature.simfunctions import *\\nf...  \n",
+       "8   from magellan.feature.simfunctions import *\\nf...  \n",
+       "9   from magellan.feature.simfunctions import *\\nf...  \n",
+       "10  from magellan.feature.simfunctions import *\\nf...  \n",
+       "11  from magellan.feature.simfunctions import *\\nf...  \n",
+       "12  from magellan.feature.simfunctions import *\\nf...  \n",
+       "13  from magellan.feature.simfunctions import *\\nf...  \n",
+       "14  from magellan.feature.simfunctions import *\\nf...  \n",
+       "15  from magellan.feature.simfunctions import *\\nf...  \n",
+       "16  from magellan.feature.simfunctions import *\\nf...  \n",
+       "17  from magellan.feature.simfunctions import *\\nf...  \n",
+       "18  from magellan.feature.simfunctions import *\\nf...  \n",
+       "19  from magellan.feature.simfunctions import *\\nf...  \n",
+       "20  from magellan.feature.simfunctions import *\\nf...  \n",
+       "21  from magellan.feature.simfunctions import *\\nf...  \n",
+       "22  from magellan.feature.simfunctions import *\\nf...  \n",
+       "23  from magellan.feature.simfunctions import *\\nf...  \n",
+       "24  from magellan.feature.simfunctions import *\\nf...  \n",
+       "25  from magellan.feature.simfunctions import *\\nf...  \n",
+       "26  from magellan.feature.simfunctions import *\\nf...  \n",
+       "27  from magellan.feature.simfunctions import *\\nf...  \n",
+       "28  from magellan.feature.simfunctions import *\\nf...  \n",
+       "29  from magellan.feature.simfunctions import *\\nf...  \n",
+       "30  from magellan.feature.simfunctions import *\\nf...  \n",
+       "31  from magellan.feature.simfunctions import *\\nf...  \n",
+       "32  from magellan.feature.simfunctions import *\\nf...  \n",
+       "33  from magellan.feature.simfunctions import *\\nf...  \n",
+       "34  from magellan.feature.simfunctions import *\\nf...  \n",
+       "35  from magellan.feature.simfunctions import *\\nf...  \n",
+       "36  from magellan.feature.simfunctions import *\\nf...  \n",
+       "37  from magellan.feature.simfunctions import *\\nf...  \n",
+       "38  from magellan.feature.simfunctions import *\\nf...  \n",
+       "39  from magellan.feature.simfunctions import *\\nf...  \n",
+       "40  from magellan.feature.simfunctions import *\\nf...  \n",
+       "41  from magellan.feature.simfunctions import *\\nf...  \n",
+       "42  from magellan.feature.simfunctions import *\\nf...  \n",
+       "43  from magellan.feature.simfunctions import *\\nf...  \n",
+       "44  from magellan.feature.simfunctions import *\\nf...  "
+      ]
+     },
+     "execution_count": 295,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "feat_table"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 296,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'abs_norm': <function magellan.feature.simfunctions.abs_norm>,\n",
+       " 'cosine': <function magellan.feature.simfunctions.cosine>,\n",
+       " 'exact_match': <function magellan.feature.simfunctions.exact_match>,\n",
+       " 'jaccard': <function magellan.feature.simfunctions.jaccard>,\n",
+       " 'jaro': <function magellan.feature.simfunctions.jaro>,\n",
+       " 'jaro_winkler': <function magellan.feature.simfunctions.jaro_winkler>,\n",
+       " 'lev': <function magellan.feature.simfunctions.lev>,\n",
+       " 'monge_elkan': <function magellan.feature.simfunctions.monge_elkan>,\n",
+       " 'needleman_wunsch': <function magellan.feature.simfunctions.needleman_wunsch>,\n",
+       " 'rel_diff': <function magellan.feature.simfunctions.rel_diff>,\n",
+       " 'smith_waterman': <function magellan.feature.simfunctions.smith_waterman>,\n",
+       " 'smith_waterman_gotoh': <function magellan.feature.simfunctions.smith_waterman_gotoh>,\n",
+       " 'soundex': <function magellan.feature.simfunctions.soundex>}"
+      ]
+     },
+     "execution_count": 296,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mg._match_s"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 297,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'dlm_dc0': <function magellan.feature.tokenizers.tok_delim>,\n",
+       " 'qgm_2': <function magellan.feature.tokenizers.tok_qgram>,\n",
+       " 'qgm_3': <function magellan.feature.tokenizers.tok_qgram>}"
+      ]
+     },
+     "execution_count": 297,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mg._match_t"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 298,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[('ID', 'ID'),\n",
+       " ('Title', 'Title'),\n",
+       " ('Author', 'Author'),\n",
+       " ('ISBN_13', 'ISBN_13'),\n",
+       " ('Paperback', 'Paperback'),\n",
+       " ('Series', 'Series'),\n",
+       " ('Publisher', 'Publisher'),\n",
+       " ('Publication_Date', 'Publication_Date')]"
+      ]
+     },
+     "execution_count": 298,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mg._match_c['corres']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 299,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "feat_subset_iter1 = feat_table[3:15] # authors and book title features"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 300,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "K = mg.extract_feature_vecs(I, feature_table=feat_subset_iter1, attrs_after='gold')\n",
+    "K.fillna(0, inplace=True)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 301,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "result_f1 = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='f1', random_state=0)\n",
+    "result_prec = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='precision', random_state=0)\n",
+    "result_recall = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='recall', random_state=0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 302,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>f1</th>\n",
+       "      <th>Precision</th>\n",
+       "      <th>Recall</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>DecisionTree</td>\n",
+       "      <td>0.900181</td>\n",
+       "      <td>0.907251</td>\n",
+       "      <td>0.901194</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>RF</td>\n",
+       "      <td>0.916124</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>0.848655</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>SVM_06794146326573248441</td>\n",
+       "      <td>0.841085</td>\n",
+       "      <td>0.896484</td>\n",
+       "      <td>0.808767</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NB</td>\n",
+       "      <td>0.773246</td>\n",
+       "      <td>0.684441</td>\n",
+       "      <td>0.898655</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>LogReg</td>\n",
+       "      <td>0.868132</td>\n",
+       "      <td>0.962103</td>\n",
+       "      <td>0.797656</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>LinReg</td>\n",
+       "      <td>0.847050</td>\n",
+       "      <td>0.833244</td>\n",
+       "      <td>0.866184</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                       Name        f1  Precision    Recall\n",
+       "0              DecisionTree  0.900181   0.907251  0.901194\n",
+       "1                        RF  0.916124   1.000000  0.848655\n",
+       "2  SVM_06794146326573248441  0.841085   0.896484  0.808767\n",
+       "3                        NB  0.773246   0.684441  0.898655\n",
+       "4                    LogReg  0.868132   0.962103  0.797656\n",
+       "5                    LinReg  0.847050   0.833244  0.866184"
+      ]
+     },
+     "execution_count": 302,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "lol = pd.merge(result_f1['cv_stats'],result_prec['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol1 = pd.merge(lol,result_recall['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol2 = lol1[['Name','Mean score_x','Mean score_y','Mean score']]\n",
+    "lol3 = lol2.rename(columns={'Mean score_x': 'f1', 'Mean score_y': 'Precision','Mean score':'Recall'})\n",
+    "lol3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 303,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "UV = mg.train_test_split(K,train_proportion=0.6,random_state=0)\n",
+    "U = UV['train']\n",
+    "V = UV['test']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 304,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (25/25)\n",
+      "Recall : 89.29% (25/28)\n",
+      "F1 : 94.34%\n",
+      "False positives : 0 (out of 25 positive predictions)\n",
+      "False negatives : 3 (out of 110 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "# Train dt using U\n",
+    "rf.fit(table=U, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "# Predict V using dt\n",
+    "P = rf.predict(table=V, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "eval_result = mg.eval_matches(P, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "mg.vis_debug_rf(rf, \n",
+    "                U, V, \n",
+    "        exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "        target_attr='gold')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 305,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#We removed the lev feature on author and title and got new set of features\n",
+    "feat_subset_iter2 = feat_table[3:6].append(feat_table[7:11]).append(feat_table[12:15])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 306,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "K = mg.extract_feature_vecs(I, feature_table=feat_subset_iter2, attrs_after='gold')\n",
+    "K.fillna(0, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 307,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>f1</th>\n",
+       "      <th>Precision</th>\n",
+       "      <th>Recall</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>DecisionTree</td>\n",
+       "      <td>0.903804</td>\n",
+       "      <td>0.891378</td>\n",
+       "      <td>0.923416</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>RF</td>\n",
+       "      <td>0.948206</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>0.901779</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>SVM_06794146326573248441</td>\n",
+       "      <td>0.832383</td>\n",
+       "      <td>0.823099</td>\n",
+       "      <td>0.848002</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NB</td>\n",
+       "      <td>0.742698</td>\n",
+       "      <td>0.644276</td>\n",
+       "      <td>0.886891</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>LogReg</td>\n",
+       "      <td>0.868132</td>\n",
+       "      <td>0.962103</td>\n",
+       "      <td>0.797656</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>LinReg</td>\n",
+       "      <td>0.826786</td>\n",
+       "      <td>0.829549</td>\n",
+       "      <td>0.837475</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                       Name        f1  Precision    Recall\n",
+       "0              DecisionTree  0.903804   0.891378  0.923416\n",
+       "1                        RF  0.948206   1.000000  0.901779\n",
+       "2  SVM_06794146326573248441  0.832383   0.823099  0.848002\n",
+       "3                        NB  0.742698   0.644276  0.886891\n",
+       "4                    LogReg  0.868132   0.962103  0.797656\n",
+       "5                    LinReg  0.826786   0.829549  0.837475"
+      ]
+     },
+     "execution_count": 307,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "result_f1 = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='f1', random_state=0)\n",
+    "result_prec = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='precision', random_state=0)\n",
+    "result_recall = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='recall', random_state=0)\n",
+    "import pandas as pd\n",
+    "lol = pd.merge(result_f1['cv_stats'],result_prec['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol1 = pd.merge(lol,result_recall['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol2 = lol1[['Name','Mean score_x','Mean score_y','Mean score']]\n",
+    "lol3 = lol2.rename(columns={'Mean score_x': 'f1', 'Mean score_y': 'Precision','Mean score':'Recall'})\n",
+    "lol3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 308,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (26/26)\n",
+      "Recall : 92.86% (26/28)\n",
+      "F1 : 96.3%\n",
+      "False positives : 0 (out of 26 positive predictions)\n",
+      "False negatives : 2 (out of 109 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "UV = mg.train_test_split(K,train_proportion=0.6,random_state=0)\n",
+    "U = UV['train']\n",
+    "V = UV['test']\n",
+    "\n",
+    "# Train dt using U\n",
+    "rf.fit(table=U, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "# Predict V using dt\n",
+    "P = rf.predict(table=V, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "eval_result = mg.eval_matches(P, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "mg.vis_debug_rf(rf, \n",
+    "                U, V, \n",
+    "        exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "        target_attr='gold')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 309,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>f1</th>\n",
+       "      <th>Precision</th>\n",
+       "      <th>Recall</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>DecisionTree</td>\n",
+       "      <td>0.897866</td>\n",
+       "      <td>0.889474</td>\n",
+       "      <td>0.912305</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>RF</td>\n",
+       "      <td>0.920685</td>\n",
+       "      <td>0.963235</td>\n",
+       "      <td>0.883597</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>SVM_06794146326573248441</td>\n",
+       "      <td>0.793673</td>\n",
+       "      <td>0.890171</td>\n",
+       "      <td>0.736432</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NB</td>\n",
+       "      <td>0.762108</td>\n",
+       "      <td>0.687934</td>\n",
+       "      <td>0.865322</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>LogReg</td>\n",
+       "      <td>0.813676</td>\n",
+       "      <td>0.915038</td>\n",
+       "      <td>0.740140</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>LinReg</td>\n",
+       "      <td>0.850053</td>\n",
+       "      <td>0.849599</td>\n",
+       "      <td>0.856311</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                       Name        f1  Precision    Recall\n",
+       "0              DecisionTree  0.897866   0.889474  0.912305\n",
+       "1                        RF  0.920685   0.963235  0.883597\n",
+       "2  SVM_06794146326573248441  0.793673   0.890171  0.736432\n",
+       "3                        NB  0.762108   0.687934  0.865322\n",
+       "4                    LogReg  0.813676   0.915038  0.740140\n",
+       "5                    LinReg  0.850053   0.849599  0.856311"
+      ]
+     },
+     "execution_count": 309,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#We added publisher features along with author and title and got new set of features\n",
+    "feat_subset_iter3 = feat_table[3:6].append(feat_table[7:11]).append(feat_table[12:15]).append(feat_table[29:37])\n",
+    "#.append(feat_table[29:33]).append(feat_table[34:37])\n",
+    "K = mg.extract_feature_vecs(I, feature_table=feat_subset_iter3, attrs_after='gold')\n",
+    "K.fillna(0, inplace=True)\n",
+    "result_f1 = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='f1', random_state=0)\n",
+    "result_prec = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='precision', random_state=0)\n",
+    "result_recall = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='recall', random_state=0)\n",
+    "import pandas as pd\n",
+    "lol = pd.merge(result_f1['cv_stats'],result_prec['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol1 = pd.merge(lol,result_recall['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol2 = lol1[['Name','Mean score_x','Mean score_y','Mean score']]\n",
+    "lol3 = lol2.rename(columns={'Mean score_x': 'f1', 'Mean score_y': 'Precision','Mean score':'Recall'})\n",
+    "lol3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 310,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (25/25)\n",
+      "Recall : 89.29% (25/28)\n",
+      "F1 : 94.34%\n",
+      "False positives : 0 (out of 25 positive predictions)\n",
+      "False negatives : 3 (out of 110 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "UV = mg.train_test_split(K,train_proportion=0.6,random_state=0)\n",
+    "U = UV['train']\n",
+    "V = UV['test']\n",
+    "\n",
+    "# Train dt using U\n",
+    "rf.fit(table=U, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "# Predict V using dt\n",
+    "P = rf.predict(table=V, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "eval_result = mg.eval_matches(P, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 325,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>f1</th>\n",
+       "      <th>Precision</th>\n",
+       "      <th>Recall</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>DecisionTree</td>\n",
+       "      <td>0.895617</td>\n",
+       "      <td>0.878651</td>\n",
+       "      <td>0.923416</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>RF</td>\n",
+       "      <td>0.948225</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>0.902363</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>SVM_06794146326573248441</td>\n",
+       "      <td>0.800396</td>\n",
+       "      <td>0.887500</td>\n",
+       "      <td>0.743011</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NB</td>\n",
+       "      <td>0.764581</td>\n",
+       "      <td>0.684825</td>\n",
+       "      <td>0.876433</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>LogReg</td>\n",
+       "      <td>0.813676</td>\n",
+       "      <td>0.915038</td>\n",
+       "      <td>0.740140</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>LinReg</td>\n",
+       "      <td>0.854759</td>\n",
+       "      <td>0.861266</td>\n",
+       "      <td>0.856311</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                       Name        f1  Precision    Recall\n",
+       "0              DecisionTree  0.895617   0.878651  0.923416\n",
+       "1                        RF  0.948225   1.000000  0.902363\n",
+       "2  SVM_06794146326573248441  0.800396   0.887500  0.743011\n",
+       "3                        NB  0.764581   0.684825  0.876433\n",
+       "4                    LogReg  0.813676   0.915038  0.740140\n",
+       "5                    LinReg  0.854759   0.861266  0.856311"
+      ]
+     },
+     "execution_count": 325,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#We added publisher features along with author and title and got new set of features\n",
+    "feat_subset_iter4 = feat_table[3:6].append(feat_table[7:11]).append(feat_table[12:15]).append(feat_table[29:33]).append(feat_table[34:37])\n",
+    "K = mg.extract_feature_vecs(I, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "K.fillna(0, inplace=True)\n",
+    "result_f1 = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='f1', random_state=0)\n",
+    "result_prec = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='precision', random_state=0)\n",
+    "result_recall = mg.select_matcher([dt,rf,svm, nb, lg, ln], \n",
+    "                           table=K,\n",
+    "                           exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "                           target_attr='gold', metric='recall', random_state=0)\n",
+    "import pandas as pd\n",
+    "lol = pd.merge(result_f1['cv_stats'],result_prec['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol1 = pd.merge(lol,result_recall['cv_stats'],left_on=['Name'],right_on=['Name'])\n",
+    "lol2 = lol1[['Name','Mean score_x','Mean score_y','Mean score']]\n",
+    "lol3 = lol2.rename(columns={'Mean score_x': 'f1', 'Mean score_y': 'Precision','Mean score':'Recall'})\n",
+    "lol3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 326,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (26/26)\n",
+      "Recall : 92.86% (26/28)\n",
+      "F1 : 96.3%\n",
+      "False positives : 0 (out of 26 positive predictions)\n",
+      "False negatives : 2 (out of 109 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "UV = mg.train_test_split(K,train_proportion=0.6,random_state=0)\n",
+    "U = UV['train']\n",
+    "V = UV['test']\n",
+    "\n",
+    "# Train dt using U\n",
+    "rf.fit(table=U, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "# Predict V using dt\n",
+    "P = rf.predict(table=V, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "eval_result = mg.eval_matches(P, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 331,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "mg.vis_debug_rf(rf, \n",
+    "                U, V, \n",
+    "        exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'],\n",
+    "        target_attr='gold')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 327,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "# Add trigger - target false negatives: used title related feature\n",
+    "trigger = mg.MatchTrigger()\n",
+    "trigger.add_cond_rule('ISBN_13_ISBN_13_lev(ltuple, rtuple) > 0.95', feat_table)\n",
+    "trigger.add_cond_status(True)\n",
+    "trigger.add_action(1)\n",
+    "\n",
+    "\n",
+    "Q = trigger.execute(P, 'predicted', inplace=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 320,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "0%  100%\n",
+      "[#####] | ETA[sec]: 0.000 \n",
+      "Total time elapsed: 0.684 sec\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Metric</th>\n",
+       "      <th>Num folds</th>\n",
+       "      <th>Fold 1</th>\n",
+       "      <th>Fold 2</th>\n",
+       "      <th>Fold 3</th>\n",
+       "      <th>Fold 4</th>\n",
+       "      <th>Fold 5</th>\n",
+       "      <th>Mean score</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>precision</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.933333</td>\n",
+       "      <td>0.900000</td>\n",
+       "      <td>0.923077</td>\n",
+       "      <td>0.951282</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>recall</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>0.818182</td>\n",
+       "      <td>0.923077</td>\n",
+       "      <td>0.948252</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>f1</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.965517</td>\n",
+       "      <td>0.857143</td>\n",
+       "      <td>0.923077</td>\n",
+       "      <td>0.949147</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      Metric  Num folds  Fold 1  Fold 2    Fold 3    Fold 4    Fold 5  \\\n",
+       "0  precision          5       1       1  0.933333  0.900000  0.923077   \n",
+       "1     recall          5       1       1  1.000000  0.818182  0.923077   \n",
+       "2         f1          5       1       1  0.965517  0.857143  0.923077   \n",
+       "\n",
+       "   Mean score  \n",
+       "0    0.951282  \n",
+       "1    0.948252  \n",
+       "2    0.949147  "
+      ]
+     },
+     "execution_count": 320,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Do cross-validation for matcher + trigger using I (K)\n",
+    "result = mg.cv_matcher_and_trigger(rf, trigger, table = K, \n",
+    "                                   exclude_attrs=['_id', 'ltable.id', 'rtable.id', 'gold'],\n",
+    "                                  target_attr='gold')\n",
+    "result['cv_stats']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 329,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (26/26)\n",
+      "Recall : 92.86% (26/28)\n",
+      "F1 : 96.3%\n",
+      "False positives : 0 (out of 26 positive predictions)\n",
+      "False negatives : 2 (out of 109 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "eval_result = mg.eval_matches(Q, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 332,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 100.0% (24/24)\n",
+      "Recall : 92.31% (24/26)\n",
+      "F1 : 96.0%\n",
+      "False positives : 0 (out of 24 positive predictions)\n",
+      "False negatives : 2 (out of 89 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "# Train dt using K\n",
+    "rf.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "# Predict M using dt\n",
+    "P = rf.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "eval_result = mg.eval_matches(P, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1782,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#Testing other learning methods"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1783,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#Decision Tree"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 333,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 96.0% (24/25)\n",
+      "Recall : 92.31% (24/26)\n",
+      "F1 : 94.12%\n",
+      "False positives : 1 (out of 25 positive predictions)\n",
+      "False negatives : 2 (out of 88 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "dt.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "N = dt.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "# Evaluate the result\n",
+    "eval_result = mg.eval_matches(N, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1786,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# SVM"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 334,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 86.36% (19/22)\n",
+      "Recall : 73.08% (19/26)\n",
+      "F1 : 79.17%\n",
+      "False positives : 3 (out of 22 positive predictions)\n",
+      "False negatives : 7 (out of 91 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "svm.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "N = svm.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "# Evaluate the result\n",
+    "eval_result = mg.eval_matches(N, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1788,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#Naive Bayes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 335,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 69.44% (25/36)\n",
+      "Recall : 96.15% (25/26)\n",
+      "F1 : 80.65%\n",
+      "False positives : 11 (out of 36 positive predictions)\n",
+      "False negatives : 1 (out of 77 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "nb.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "N = nb.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "# Evaluate the result\n",
+    "eval_result = mg.eval_matches(N, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1790,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#Logistic Regression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 336,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 90.0% (18/20)\n",
+      "Recall : 69.23% (18/26)\n",
+      "F1 : 78.26%\n",
+      "False positives : 2 (out of 20 positive predictions)\n",
+      "False negatives : 8 (out of 93 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "lg.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "N = lg.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "# Evaluate the result\n",
+    "eval_result = mg.eval_matches(N, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1792,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#Linear Regression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 337,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Precision : 85.19% (23/27)\n",
+      "Recall : 88.46% (23/26)\n",
+      "F1 : 86.79%\n",
+      "False positives : 4 (out of 27 positive predictions)\n",
+      "False negatives : 3 (out of 86 negative predictions)\n"
+     ]
+    }
+   ],
+   "source": [
+    "M = mg.extract_feature_vecs(J, feature_table=feat_subset_iter4, attrs_after='gold')\n",
+    "M.fillna(0, inplace=True)\n",
+    "ln.fit(table=K, \n",
+    "       exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "       target_attr='gold')\n",
+    "N = ln.predict(table=M, exclude_attrs=['_id', 'ltable.ID', 'rtable.ID', 'gold'], \n",
+    "              append=True, target_attr='predicted', inplace=False)\n",
+    "# Evaluate the result\n",
+    "eval_result = mg.eval_matches(N, 'gold', 'predicted')\n",
+    "mg.print_eval_summary(eval_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
